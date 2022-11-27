@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {Provider as GameProvider} from "./src/context/heroContext";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+//import screens
+import HeroDetailScreen from './src/screens/HeroDetail';
+import RoasterScreen from './src/screens/Roster';
+import AdventureScreen from './src/screens/Adventure';
+import ResultScreen from './src/screens/Result';
+
+
+
+const navigator = createStackNavigator(
+  {
+    Home: RoasterScreen,
+    HeroDetail: HeroDetailScreen,
+    Adventure: AdventureScreen,
+    AdResult : ResultScreen,
   },
-});
+
+  {
+    initialRouteName:"Home",
+    defaultNavigationOptions:{
+      title:"App"
+    }
+  }
+);
+
+const App =  createAppContainer(navigator);
+
+export default ()=>{
+  return <GameProvider>
+           <App/>
+        </GameProvider>
+}
